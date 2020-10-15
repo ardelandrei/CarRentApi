@@ -14,9 +14,29 @@ namespace CarRentApi.Services
             this.vehicleRepository = vehicleRepository;
         }
 
+        public Task<bool> DeleteVehicle()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Vehicle> GetVehicle()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IEnumerable<Vehicle>> GetVehicles()
         {
             return vehicleRepository.GetAll();
+        }
+
+        public Task<bool> InsertVehicle()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Vehicle> UpdateVehicle()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
