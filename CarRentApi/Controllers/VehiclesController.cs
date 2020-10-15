@@ -1,5 +1,8 @@
 ﻿using System.Text.Json;
+using CarRentApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRentApi.Controllers
 {
@@ -7,12 +10,24 @@ namespace CarRentApi.Controllers
     [ApiController]
     public class VehiclesController : ControllerBase
     {
+        private readonly IVehicleService vehicleService;
 
-        public IActionResult Index()
+        public VehiclesController(IVehicleService vehicleService)
         {
-            var message = new { Message = "Welcome to rent a car!" };
+            this.vehicleService = vehicleService;
+        }
 
-            return Ok(JsonSerializer.Serialize(message));
+        [HttpGet]
+        public async Task<IActionResult> Vehicles()
+        {
+            var vehicles = await vehicleService.GetVehicles();
+
+            if (vehicles != null)
+            {
+                return Ok(JsonSerializer.Serialize(vehicles.ToArray()));
+            }
+
+            return NotFound();
         }
     }
 }

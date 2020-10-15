@@ -24,7 +24,7 @@ namespace DataAccess.Data
                         VIN = "ASDFASDFASDFASDF1",
                         Mark = "Opel",
                         Model = "Astra",
-                        YearOfManufacture = new DateTime(2008, 10, 1)
+                        DateOfManufacture = new DateTime(2008, 10, 1)
                     }
                 },
 
@@ -34,7 +34,7 @@ namespace DataAccess.Data
                         VIN = "ASDFASDFASDFASDF2",
                         Mark = "Audi",
                         Model = "A4",
-                        YearOfManufacture = new DateTime(2007, 10, 1)
+                        DateOfManufacture = new DateTime(2007, 10, 1)
                     }
                 },
 
@@ -44,7 +44,7 @@ namespace DataAccess.Data
                         VIN = "ASDFASDFASDFASDF3",
                         Mark = "Mercedes",
                         Model = "Benz",
-                        YearOfManufacture = new DateTime(2010, 10, 1)
+                        DateOfManufacture = new DateTime(2010, 10, 1)
                     }
                 },
 
@@ -54,7 +54,7 @@ namespace DataAccess.Data
                         VIN = "ASDFASDFASDFASDF4",
                         Mark = "Dacia",
                         Model = "Logan",
-                        YearOfManufacture = new DateTime(2010, 10, 1)
+                        DateOfManufacture = new DateTime(2010, 10, 1)
                     }
                 },
 
@@ -64,7 +64,7 @@ namespace DataAccess.Data
                         VIN = "ASDFASDFASDFASDF5",
                         Mark = "Porsche",
                         Model = "Carrera",
-                        YearOfManufacture = new DateTime(2010, 10, 1)
+                        DateOfManufacture = new DateTime(2010, 10, 1)
                     }
                 },
             };

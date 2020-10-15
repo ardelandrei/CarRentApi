@@ -15,7 +15,9 @@ namespace DataAccess.Models
 
         public string Model { get; set; }
 
-        public DateTime YearOfManufacture { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfManufacture { get; set; }
 
     }
 }
