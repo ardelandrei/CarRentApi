@@ -1,27 +1,21 @@
-﻿using DataAccess.Models;
-using DataAccess.Repositories;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using DataAccess.Models;
+using DataAccess.Repositories;
 
 namespace CarRentApi.Services
 {
     public class VehiclesService : IVehicleService
     {
         private readonly IVehiclesRepository vehicleRepository;
+        private readonly ILogger<VehiclesService> logger;
 
-        public VehiclesService(IVehiclesRepository vehicleRepository)
+        public VehiclesService(IVehiclesRepository vehicleRepository, ILogger<VehiclesService> logger)
         {
             this.vehicleRepository = vehicleRepository;
-        }
-
-        public Task<bool> DeleteVehicle()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Vehicle> GetVehicle()
-        {
-            throw new System.NotImplementedException();
+            this.logger = logger;
         }
 
         public Task<IEnumerable<Vehicle>> GetVehicles()
@@ -29,14 +23,64 @@ namespace CarRentApi.Services
             return vehicleRepository.GetAll();
         }
 
-        public Task<bool> InsertVehicle()
+        public async Task<Vehicle> GetVehicle(int id)
         {
-            throw new System.NotImplementedException();
+            Vehicle vehicle = null;
+            try
+            {
+                vehicle = await vehicleRepository.Get(id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+
+            return vehicle;
         }
 
-        public Task<Vehicle> UpdateVehicle()
+        public async Task<bool> DeleteVehicle(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var deleted = await vehicleRepository.Delete(id);
+                return deleted;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+
+            return false;
+        }
+
+        public async Task<(bool IsSuccess, Vehicle Vehicle)> InsertVehicle(Vehicle vehicle)
+        {
+            try
+            {
+                var response = await vehicleRepository.Add(vehicle);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+
+            return (false, null);
+        }
+
+        public async Task<bool> UpdateVehicle(Vehicle vehicle)
+        {
+            try
+            {
+                var updated = await vehicleRepository.Update(vehicle);
+                return updated;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+
+            return false;
         }
     }
 }

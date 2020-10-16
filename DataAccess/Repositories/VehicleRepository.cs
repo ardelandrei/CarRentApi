@@ -1,8 +1,7 @@
-﻿using DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using DataAccess.Models;
 
 namespace DataAccess.Repositories
 {
@@ -13,37 +12,6 @@ namespace DataAccess.Repositories
         public VehicleRepository(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
-        }
-
-        public async Task<bool> Add(Vehicle vehicle)
-        {
-            dbContext.Vehicles.Add(vehicle);
-            var changes = await dbContext.SaveChangesAsync();
-
-            if (changes > 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> Delete(int id)
-        {
-            var vehicle = await dbContext.Vehicles.FindAsync(id);
-            if (vehicle != null)
-            {
-                return false;
-            }
-
-            dbContext.Vehicles.Remove(vehicle);
-            var changes = await dbContext.SaveChangesAsync();
-            if (changes > 0)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         public async Task<Vehicle> Get(int id)
@@ -62,16 +30,39 @@ namespace DataAccess.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<(bool, Vehicle)> Update(Vehicle vehicle)
+        public async Task<(bool, Vehicle)> Add(Vehicle vehicle)
         {
-            dbContext.Entry(vehicle).State = EntityState.Modified;
+            var addedVehicle = dbContext.Vehicles.Add(vehicle);
             var changes = await dbContext.SaveChangesAsync();
+
             if (changes > 0)
             {
-                return (true, vehicle);
+                return (true, addedVehicle.Entity);
             }
 
             return (false, vehicle);
+        }
+
+        public async Task<bool> Update(Vehicle vehicle)
+        {
+            dbContext.Entry(vehicle).State = EntityState.Modified;
+            var changes = await dbContext.SaveChangesAsync();
+
+            return changes > 0;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var vehicle = await dbContext.Vehicles.FindAsync(id);
+            if (vehicle == null)
+            {
+                return false;
+            }
+
+            dbContext.Vehicles.Remove(vehicle);
+            var changes = await dbContext.SaveChangesAsync();
+
+            return changes > 0;
         }
     }
 }

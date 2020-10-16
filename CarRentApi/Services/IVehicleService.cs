@@ -1,8 +1,6 @@
-﻿using DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccess.Models;
 
 namespace CarRentApi.Services
 {
@@ -10,12 +8,12 @@ namespace CarRentApi.Services
     {
         Task<IEnumerable<Vehicle>> GetVehicles();
 
-        Task<Vehicle> GetVehicle();
+        Task<Vehicle> GetVehicle(int id);
 
-        Task<bool> InsertVehicle();
+        Task<(bool IsSuccess, Vehicle Vehicle)> InsertVehicle(Vehicle vehicle);
 
-        Task<bool> DeleteVehicle();
+        Task<bool> DeleteVehicle(int id);
 
-        Task<Vehicle> UpdateVehicle();
+        Task<bool> UpdateVehicle(Vehicle vehicle);
     }
 }

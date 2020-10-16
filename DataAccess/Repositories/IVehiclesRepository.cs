@@ -1,6 +1,6 @@
-﻿using DataAccess.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccess.Models;
 
 namespace DataAccess.Repositories
 {
@@ -10,9 +10,9 @@ namespace DataAccess.Repositories
 
         Task<Vehicle> Get(int id);
 
-        Task<bool> Add(Vehicle vehicle);
+        Task<(bool IsSuccess, Vehicle Vehicle)> Add(Vehicle vehicle);
 
-        Task<(bool,Vehicle)> Update(Vehicle vehicle);
+        Task<bool> Update(Vehicle vehicle);
 
         Task<bool> Delete(int id);
     }
