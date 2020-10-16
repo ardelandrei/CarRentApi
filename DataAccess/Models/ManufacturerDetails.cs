@@ -8,7 +8,7 @@ namespace DataAccess.Models
         public int ManufacturerDetailsId { get; set; }
 
         [Required]
-        [MaxLength(17)]
+        [StringLength(17, MinimumLength = 17)]
         public string VIN { get; set; }
 
         public string Mark { get; set; }
