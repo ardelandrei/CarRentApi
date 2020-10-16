@@ -45,7 +45,7 @@ namespace DataAccess.Repositories
 
         public async Task<bool> Update(Vehicle vehicle)
         {
-            dbContext.Entry(vehicle).State = EntityState.Modified;
+            dbContext.Update(vehicle);
             var changes = await dbContext.SaveChangesAsync();
 
             return changes > 0;
